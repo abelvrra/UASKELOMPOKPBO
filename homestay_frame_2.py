@@ -4,6 +4,7 @@ from tkcalendar import DateEntry
 from colors import (COLOR_BG, COLOR_GREEN, COLOR_TEXT_DARK, COLOR_TEXT_GRAY, 
                     COLOR_WHITE, COLOR_BORDER, COLOR_GOLD)
 from data_store_2 import DataStore
+from scroll_utils import enable_mousewheel_scroll
 
 class HomestayCard(tk.Frame):
     """Card untuk menampilkan homestay"""
@@ -99,10 +100,8 @@ class HomestayFrame(tk.Frame):
         canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
         canvas.configure(yscrollcommand=scrollbar.set)
         
-        # Bind mousewheel untuk scroll smooth
-        def _on_mousewheel(event):
-            canvas.yview_scroll(int(-1*(event.delta/120)), "units")
-        canvas.bind_all("<MouseWheel>", _on_mousewheel)
+        # Bind mousewheel untuk scroll smooth (aman dipakai di banyak halaman)
+        enable_mousewheel_scroll(canvas)
         
         # Add homestay cards
         for homestay in DataStore.homestays:
@@ -138,6 +137,9 @@ class HomestayFrame(tk.Frame):
         
         canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
         canvas.configure(yscrollcommand=scrollbar.set)
+        
+        # Bind mousewheel supaya dialog ini bisa di-scroll (sebelumnya tidak ada binding)
+        enable_mousewheel_scroll(canvas)
         
         # Content
         content = tk.Frame(scrollable_frame, bg=COLOR_WHITE)
