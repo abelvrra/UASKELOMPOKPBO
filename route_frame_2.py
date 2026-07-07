@@ -59,7 +59,9 @@ class RouteFrame2(tk.Frame):
         body = tk.Frame(content, bg=COLOR_BG)
         body.pack(fill="both", expand=True, pady=(24, 0))
 
-        self._build_filter_panel(body)
+        self.destinasi_var = tk.StringVar(value=DESTINATIONS[0])
+        self.lokasi_var = tk.StringVar(value=LOKASI_SAYA[0])
+
         self._build_map_panel(body)
         self._build_weather_panel(body)
 
@@ -83,43 +85,7 @@ class RouteFrame2(tk.Frame):
                  anchor="w").grid(row=1, column=1, sticky="w", pady=(2, 0))
 
     # ----------------------------------------------------------
-    def _build_filter_panel(self, parent):
-        panel = tk.Frame(parent, bg=COLOR_WHITE, width=260,
-                          highlightbackground=COLOR_BORDER, highlightthickness=1)
-        panel.pack(side="left", fill="y", padx=(0, 20))
-        panel.pack_propagate(False)
 
-        inner = tk.Frame(panel, bg=COLOR_WHITE)
-        inner.pack(fill="both", padx=20, pady=22)
-
-        tk.Label(inner, text="Pilih Destinasi", font=("Segoe UI", 10, "bold"), bg=COLOR_WHITE,
-                 fg=COLOR_TEXT_DARK, anchor="w").pack(anchor="w", pady=(0, 6))
-        self.destinasi_var = tk.StringVar(value=DESTINATIONS[0])
-        self._build_dropdown(inner, self.destinasi_var, DESTINATIONS)
-
-        tk.Label(inner, text="Lokasi Saya", font=("Segoe UI", 10, "bold"), bg=COLOR_WHITE,
-                 fg=COLOR_TEXT_DARK, anchor="w").pack(anchor="w", pady=(18, 6))
-        self.lokasi_var = tk.StringVar(value=LOKASI_SAYA[0])
-        self._build_dropdown(inner, self.lokasi_var, LOKASI_SAYA)
-
-        tk.Button(
-            inner, text="Tampilkan Rute", font=("Segoe UI", 10, "bold"), bg=COLOR_WHITE,
-            fg=COLOR_GREEN_DARK, highlightbackground=COLOR_GREEN_DARK, highlightthickness=1,
-            bd=0, relief="flat", pady=11, cursor="hand2",
-            command=self._update_route_display,
-        ).pack(fill="x", pady=(22, 0))
-
-    def _build_dropdown(self, parent, var, options):
-        box = tk.Frame(parent, bg=COLOR_WHITE, highlightbackground=COLOR_BORDER,
-                        highlightthickness=1)
-        box.pack(fill="x")
-        menu = tk.OptionMenu(box, var, *options)
-        menu.configure(font=("Segoe UI", 10), bg=COLOR_WHITE, fg=COLOR_TEXT_DARK,
-                        bd=0, relief="flat", highlightthickness=0, anchor="w")
-        menu["menu"].configure(font=("Segoe UI", 10))
-        menu.pack(fill="both", expand=True, padx=6, pady=4)
-
-    # ----------------------------------------------------------
     def _build_map_panel(self, parent):
         wrap = tk.Frame(parent, bg=COLOR_BG)
         wrap.pack(side="left", fill="both", expand=True, padx=(0, 20))
