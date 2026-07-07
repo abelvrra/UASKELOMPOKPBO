@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk, messagebox, simpledialog
 from colors import COLOR_BG, COLOR_GREEN, COLOR_TEXT_DARK, COLOR_TEXT_GRAY, COLOR_WHITE, COLOR_BORDER
 from data_store_2 import DataStore
+from scroll_utils import enable_mousewheel_scroll
 
 class DestinationCard(tk.Frame):
     """Card untuk menampilkan destinasi wisata"""
@@ -96,10 +97,8 @@ class TicketFrame(tk.Frame):
         canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
         canvas.configure(yscrollcommand=scrollbar.set)
         
-        # Bind mousewheel untuk scroll smooth
-        def _on_mousewheel(event):
-            canvas.yview_scroll(int(-1*(event.delta/120)), "units")
-        canvas.bind_all("<MouseWheel>", _on_mousewheel)
+        # Bind mousewheel untuk scroll smooth (aman dipakai di banyak halaman)
+        enable_mousewheel_scroll(canvas)
         
         # Grid layout untuk destinasi (3 columns)
         col = 0
@@ -147,6 +146,9 @@ class TicketFrame(tk.Frame):
         
         canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
         canvas.configure(yscrollcommand=scrollbar.set)
+        
+        # Bind mousewheel supaya dialog ini bisa di-scroll (sebelumnya tidak ada binding)
+        enable_mousewheel_scroll(canvas)
         
         # Content di dalam scrollable frame
         content = tk.Frame(scrollable_frame, bg=COLOR_WHITE)
