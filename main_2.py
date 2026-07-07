@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """
 GoTravel - Sistem Pemesanan Tiket Wisata dan Homestay
 Main Application File
@@ -6,7 +8,7 @@ Main Application File
 import tkinter as tk
 from tkinter import ttk
 
-
+# Import semua frame
 from login_frame_2 import LoginFrame
 from register_frame_2 import RegisterFrame
 from dashboard_frame_2 import DashboardFrame

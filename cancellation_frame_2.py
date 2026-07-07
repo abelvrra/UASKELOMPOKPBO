@@ -1,9 +1,16 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
-from colors import (COLOR_BG, COLOR_GREEN, COLOR_RED, COLOR_TEXT_DARK, COLOR_TEXT_GRAY, 
-                    COLOR_WHITE, COLOR_BORDER)
 from data_store_2 import DataStore
 from scroll_utils import enable_mousewheel_scroll
+
+# Warna tema (di-inline langsung di file ini, tidak lagi dari colors.py)
+COLOR_BG = "#f7f8fa"
+COLOR_BORDER = "#e6e8eb"
+COLOR_GREEN = "#2f9e44"
+COLOR_RED = "#e03131"
+COLOR_TEXT_DARK = "#1a1a1a"
+COLOR_TEXT_GRAY = "#6b7280"
+COLOR_WHITE = "#ffffff"
 
 class CancellationFrame(tk.Frame):
     """Frame untuk pembatalan booking"""

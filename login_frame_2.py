@@ -1,7 +1,12 @@
 import tkinter as tk
 from tkinter import messagebox
 from data_store_2 import DataStore
-from colors import BACKGROUND, PRIMARY, CARD, TEXT
+
+# Warna tema (di-inline langsung di file ini, tidak lagi dari colors.py)
+BACKGROUND = "#F5F7FA"
+PRIMARY = "#4F46E5"
+CARD = "#FFFFFF"
+TEXT = "#1F2937"
 
 class LoginFrame(tk.Frame):
     def __init__(self, parent, controller):

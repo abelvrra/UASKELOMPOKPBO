@@ -1,7 +1,11 @@
 import tkinter as tk
 from tkinter import messagebox
 from data_store_2 import DataStore
-from colors import BACKGROUND, PRIMARY, CARD
+
+# Warna tema (di-inline langsung di file ini, tidak lagi dari colors.py)
+BACKGROUND = "#F5F7FA"
+PRIMARY = "#4F46E5"
+CARD = "#FFFFFF"
 
 class RegisterFrame(tk.Frame):
     def __init__(self, parent, controller):

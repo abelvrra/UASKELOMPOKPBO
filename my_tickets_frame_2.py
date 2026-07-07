@@ -1,6 +1,11 @@
 import tkinter as tk
 from data_store_2 import DataStore
-from colors import BACKGROUND, CARD, PRIMARY, TEXT
+
+# Warna tema (di-inline langsung di file ini, tidak lagi dari colors.py)
+BACKGROUND = "#F5F7FA"
+CARD = "#FFFFFF"
+PRIMARY = "#4F46E5"
+TEXT = "#1F2937"
 
 class MyTicketsFrame(tk.Frame):
     def __init__(self, parent, controller):
