@@ -111,8 +111,15 @@ class CancellationFrame(tk.Frame):
             lambda e: canvas.configure(scrollregion=canvas.bbox("all"))
         )
 
-        canvas.create_window((0, 0), window=scrollable_frame, anchor="nw", width=canvas.winfo_width())
+        canvas_window = canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
         canvas.configure(yscrollcommand=scrollbar.set)
+
+        # Supaya lebar isi scrollable_frame selalu mengikuti lebar canvas saat ini
+        # (winfo_width() tidak bisa dipakai langsung di sini karena canvas belum
+        # sempat digambar, jadi nilainya masih 1px - itu penyebab card tidak terlihat)
+        def _sync_frame_width(event):
+            canvas.itemconfig(canvas_window, width=event.width)
+        canvas.bind("<Configure>", _sync_frame_width)
 
         # Bind mousewheel untuk scroll yang lebih smooth (aman dipakai di banyak halaman)
         enable_mousewheel_scroll(canvas)
