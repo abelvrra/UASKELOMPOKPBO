@@ -3,6 +3,7 @@ from tkinter import ttk, messagebox
 from colors import (COLOR_BG, COLOR_GREEN, COLOR_RED, COLOR_TEXT_DARK, COLOR_TEXT_GRAY, 
                     COLOR_WHITE, COLOR_BORDER)
 from data_store_2 import DataStore
+from scroll_utils import enable_mousewheel_scroll
 
 class CancellationFrame(tk.Frame):
     """Frame untuk pembatalan booking"""
@@ -66,10 +67,8 @@ class CancellationFrame(tk.Frame):
         canvas.create_window((0, 0), window=scrollable_frame, anchor="nw", width=canvas.winfo_width())
         canvas.configure(yscrollcommand=scrollbar.set)
         
-        # Bind mousewheel untuk scroll yang lebih smooth
-        def _on_mousewheel(event):
-            canvas.yview_scroll(int(-1*(event.delta/120)), "units")
-        canvas.bind_all("<MouseWheel>", _on_mousewheel)
+        # Bind mousewheel untuk scroll yang lebih smooth (aman dipakai di banyak halaman)
+        enable_mousewheel_scroll(canvas)
         
         # Display bookings
         for booking in user_bookings:
