@@ -220,8 +220,9 @@ Status: Aktif""".replace(",", ".")
         # Confirmation dialog
         dialog = tk.Toplevel(self)
         dialog.title("Konfirmasi Pembatalan")
-        dialog.geometry("450x350")
-        dialog.resizable(False, False)
+        dialog.geometry("450x480")
+        dialog.minsize(400, 420)
+        dialog.resizable(True, True)
         dialog.transient(self)
         dialog.grab_set()
 
@@ -231,7 +232,7 @@ Status: Aktif""".replace(",", ".")
 
         # Icon
         tk.Label(content, text="❌", font=("Arial", 50),
-                bg=COLOR_WHITE).pack(pady=20)
+                bg=COLOR_WHITE).pack(pady=(10, 10))
 
         tk.Label(content, text="Batalkan Booking Ini?", font=("Segoe UI", 16, "bold"),
                 bg=COLOR_WHITE, fg=COLOR_TEXT_DARK).pack()
