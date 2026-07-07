@@ -39,6 +39,42 @@ HOMESTAY_CATALOG = [
         "rating": 4.5, "review_count": 54,
         "fasilitas": "Kipas angin, kamar mandi dalam, dapur bersama",
     },
+    {
+        "icon": "🏘️", "nama": "Omah Asri Guesthouse",
+        "alamat": "Jl. Mayjend Sungkono, Madiun", "harga": 175000,
+        "rating": 4.6, "review_count": 63,
+        "fasilitas": "AC, WiFi, dapur bersama, teras",
+    },
+    {
+        "icon": "🏨", "nama": "Madiun Heritage Homestay",
+        "alamat": "Jl. Kompol Sunaryo, Madiun", "harga": 280000,
+        "rating": 4.7, "review_count": 95,
+        "fasilitas": "AC, WiFi, sarapan, ruang tamu bersama",
+    },
+    {
+        "icon": "🌾", "nama": "Sawah View Cottage",
+        "alamat": "Geger, Madiun", "harga": 150000,
+        "rating": 4.6, "review_count": 41,
+        "fasilitas": "Pemandangan sawah, gazebo, kipas angin",
+    },
+    {
+        "icon": "🏕️", "nama": "Kare Hill Homestay",
+        "alamat": "Kare, Madiun", "harga": 225000,
+        "rating": 4.7, "review_count": 58,
+        "fasilitas": "Udara sejuk, api unggun, parkir luas",
+    },
+    {
+        "icon": "🏩", "nama": "Pahlawan Residence",
+        "alamat": "Jl. Pahlawan, Madiun", "harga": 260000,
+        "rating": 4.4, "review_count": 39,
+        "fasilitas": "AC, WiFi, dekat pusat kota, parkir",
+    },
+    {
+        "icon": "🛌", "nama": "Simple Stay Madiun",
+        "alamat": "Jl. Mangga, Madiun", "harga": 95000,
+        "rating": 4.3, "review_count": 27,
+        "fasilitas": "Kipas angin, kamar mandi dalam",
+    },
 ]
 
 BULAN_ID = ["Januari", "Februari", "Maret", "April", "Mei", "Juni",
@@ -83,21 +119,21 @@ class HomestayCard(tk.Frame):
 
         rating_text = f"⭐ {homestay['rating']} ({homestay['review_count']} review)"
         tk.Label(info_frame, text=rating_text, font=("Segoe UI", 9),
-                bg=COLOR_WHITE, fg=COLOR_TEXT_GRAY).pack(side="left")
+                bg=COLOR_WHITE, fg=COLOR_TEXT_GRAY).pack(anchor="w")
 
         price_text = f"Rp {homestay['harga']:,}/malam".replace(",", ".")
         tk.Label(info_frame, text=price_text, font=("Segoe UI", 11, "bold"),
-                bg=COLOR_WHITE, fg=COLOR_GREEN).pack(side="right")
+                bg=COLOR_WHITE, fg=COLOR_GREEN).pack(anchor="w", pady=(2, 0))
 
         # Facilities
         tk.Label(content, text=f"Fasilitas: {homestay['fasilitas']}", font=("Segoe UI", 8),
-                bg=COLOR_WHITE, fg=COLOR_TEXT_GRAY, wraplength=250, justify="left").pack(anchor="w")
+                bg=COLOR_WHITE, fg=COLOR_TEXT_GRAY, wraplength=230, justify="left").pack(anchor="w")
 
         # Button
         btn = tk.Button(content, text="Lihat Detail", bg=COLOR_GREEN, fg="white",
                        font=("Segoe UI", 9, "bold"), relief="flat",
                        command=self._on_click)
-        btn.pack(side="right", pady=(10, 0))
+        btn.pack(anchor="e", pady=(10, 0))
 
         for widget in (self, content, header, info_frame):
             widget.bind("<Button-1>", lambda e: self._on_click())
@@ -147,10 +183,19 @@ class HomestayFrame(tk.Frame):
         # Bind mousewheel untuk scroll smooth (aman dipakai di banyak halaman)
         enable_mousewheel_scroll(canvas)
 
-        # Add homestay cards
+        # Add homestay cards dalam grid 3 kolom (ke samping, hemat tempat)
+        col = 0
+        row = 0
         for homestay in HOMESTAY_CATALOG:
             card = HomestayCard(scrollable_frame, homestay, on_book=self._on_book_homestay)
-            card.pack(fill="x", pady=10)
+            card.grid(row=row, column=col, sticky="nsew", padx=8, pady=8)
+
+            scrollable_frame.grid_columnconfigure(col, weight=1)
+
+            col += 1
+            if col >= 3:
+                col = 0
+                row += 1
 
         canvas.pack(side="left", fill="both", expand=True)
         scrollbar.pack(side="right", fill="y")
